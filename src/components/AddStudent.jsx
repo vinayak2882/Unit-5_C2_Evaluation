@@ -1,9 +1,50 @@
+import { useState } from "react";
+import { ShowStudents } from "./ShowStudents";
+
 export const AddStudent = () => {
+// const [adddata,setadddata]=useState({
+//     "id": 3,
+//     "first_name": "",
+//     "last_name": "",
+//     "email": "",
+//     "gender": ["Female","male"],
+//     "age": "",
+//     "tenth_score": "",
+//     "twelth_score": "",
+//     "preferred_branch": ["law","commerce","science","sports","arts","acting"]
+// })
+
+const [adddata,setadddata]=useState([]);
+
+
+const handleChenge=(e)=>{
+    const {name,value}=e.target
+    setadddata({
+        ...adddata,
+        [name]:value
+    })
+}
+
+const handleSubmit = (e)=>{
+    e.preventDefault();
+    const vina =adddata;
+    fetch("http://localhost:8080/students",{
+      method: "POST",
+      body: JSON.stringify(vina),
+      headers:{"Content-Type": "application/json"}
+    }).then(()=>{
+      console.log(vina)
+    })
+  }
+
+
     return (
       <form className="addstudent">
         <div>
           Firstname:{" "}
           <input
+          onChange={handleChenge}
+        //   value={adddata.first_name}
             type="text"
             name="first_name"
             className="first_name"
@@ -14,6 +55,8 @@ export const AddStudent = () => {
           {" "}
           Last Name:
           <input
+           onChange={handleChenge}
+        //    value={adddata.last_name}
             type="text"
             name="last_name"
             className="last_name"
@@ -24,6 +67,8 @@ export const AddStudent = () => {
           {" "}
           Email:
           <input
+           onChange={handleChenge}
+        //    value={adddata.email}
             type="email"
             name="email"
             className="email"
@@ -36,6 +81,8 @@ export const AddStudent = () => {
           <div>
             Male
             <input
+             onChange={handleChenge}
+             
               name="gender"
               className="male"
               type="radio"
@@ -43,6 +90,8 @@ export const AddStudent = () => {
             />{" "}
             Female{" "}
             <input
+             onChange={handleChenge}
+          
               name="gender"
               className="female"
               type="radio"
@@ -53,6 +102,8 @@ export const AddStudent = () => {
         <div>
           Age{" "}
           <input
+           onChange={handleChenge}
+        //    value={adddata.email}
             type="number"
             name="age"
             className="age"
@@ -62,6 +113,8 @@ export const AddStudent = () => {
         <div>
           Tenth Score:{" "}
           <input
+           onChange={handleChenge}
+        //    value={adddata.email}
             type="number"
             name="tenth_score"
             className="tenth_score"
@@ -71,6 +124,8 @@ export const AddStudent = () => {
         <div>
           Twelth Score:{" "}
           <input
+           onChange={handleChenge}
+        //    value={adddata.email}
             type="number"
             name="twelth_score"
             className="twelth_score"
